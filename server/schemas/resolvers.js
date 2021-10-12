@@ -1,6 +1,8 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Product, Category, Order } = require('../models');
 const { signToken } = require('../utils/auth');
+//const stripe = require('stripe')('sk_test_51Jjp0ZGSMAd7MIHGib6g6AenO1JcngVgDxG3UDsKuGAKXRohzHzTTIzcHKBJr099816bfCk7FEPxCJz7zfuH9h1S001JFvhOCH', {apiVersion: ''});
+//const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc', {apiVersion: ''});
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
@@ -78,13 +80,13 @@ const resolvers = {
         });
       }
 
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items,
-        mode: 'payment',
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`
-      });
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      mode: 'payment',
+      success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${url}/`
+    });
 
       return { session: session.id };
     }
