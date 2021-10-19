@@ -7,11 +7,4 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mernshopping', 
   useFindAndModify: false
 });
 
-// mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/shop-shop', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-//   useFindAndModify: false
-// });
-
 module.exports = mongoose.connection;
